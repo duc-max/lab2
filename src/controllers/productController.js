@@ -3,7 +3,7 @@ const { mongoose } = require("mongoose");
 
 const getAllProduct = async (req, res) => {
   try {
-    const products = await Product.find();
+    const products = await Product.find().populate("category");
     if (products?.length === 0) {
       return res.status(404).json({ message: "No product found" });
     }
@@ -40,12 +40,12 @@ const createProduct = async (req, res) => {
       category: category,
     });
     await product.save().then((newDoc) => {
-      console.log(newDoc);
+      res.status(201).json({ product: newDoc, isOk: true });
     });
     if (!product) {
       return res.status(400).json({ message: "Product not created" });
     }
-    res.status(201).json({ product: product, isOk: true });
+  
   } catch (error) {
     console.error(error);
   }
@@ -63,6 +63,8 @@ const updateProduct = async (req, res) => {
       supplier: supplier,
       category: category,
     });
+    res.status(200).json({ product: product, isOk: true });
+
   } catch (error) {
     console.error(error);
   }

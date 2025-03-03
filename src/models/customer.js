@@ -4,38 +4,45 @@ const customerSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      require: true,
+      required: true,
     },
     email: {
       type: String,
-      require: true,
+      required: true,
     },
     password: {
       type: String,
-      require: true,
+      required: true,
     },
     phone: {
       type: String,
-      require: true,
+      required: true,
+      validate: {
+        validator: function (v) {
+          // Regular expression to validate Vietnamese phone numbers
+          return /^(0[3-9]{1}[0-9]{8})$/.test(v);
+        },
+        message: (props) => `${props.value} is not a valid Vietnamese phone number!`,
+      },
     },
     address: [
       {
         street: {
           type: String,
-          require: true,
+          required: true,
         },
         city: {
           type: String,
-          require: true,
+          required: true,
         },
         state: {
-            type: String,
-            require: true,
+          type: String,
+          required: true,
         },
         country: {
-            type: String,
-            require: true,
-        }
+          type: String,
+          required: true,
+        },
       },
     ],
   },

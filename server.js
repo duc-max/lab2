@@ -5,6 +5,8 @@ const connectDB = require("./src/config/db");
 require("dotenv").config();
 const customerRouter = require("./src/routers/customerRouter");
 const productRouter = require("./src/routers/productRouter");
+const orderRouter = require("./src/routers/orderRouter");
+
 
 
 const app = express();
@@ -24,6 +26,7 @@ app.get("/", async (req, res, next) => {
 
 app.use("/api/customer", customerRouter);
 app.use("/api/product", productRouter);
+app.use("/api/order", orderRouter);
 
 app.use((err, req, res, next) => {
     if(res) {
