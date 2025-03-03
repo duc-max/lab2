@@ -6,7 +6,7 @@ require("dotenv").config();
 const customerRouter = require("./src/routers/customerRouter");
 const productRouter = require("./src/routers/productRouter");
 const orderRouter = require("./src/routers/orderRouter");
-
+const categoryRouter = require("./src/routers/categoryRouter");
 
 
 const app = express();
@@ -27,9 +27,10 @@ app.get("/", async (req, res, next) => {
 app.use("/api/customer", customerRouter);
 app.use("/api/product", productRouter);
 app.use("/api/order", orderRouter);
+app.use("/api/category", categoryRouter);
 
 app.use((err, req, res, next) => {
-    if(res) {
+    if (res) {
         res.status(err.status).json({
             status: err.status,
             message: err.message,

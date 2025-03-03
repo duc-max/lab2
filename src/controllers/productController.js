@@ -63,8 +63,10 @@ const updateProduct = async (req, res) => {
       supplier: supplier,
       category: category,
     });
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
     res.status(200).json({ product: product, isOk: true });
-
   } catch (error) {
     console.error(error);
   }
