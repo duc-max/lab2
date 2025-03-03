@@ -1,0 +1,16 @@
+# Thư mục node_modules chứa các package đã cài đặt, không cần thiết đưa vào Git
+node_modules/
+
+# Tệp log
+*.log
+
+# Thư mục tạm thời của hệ điều hành
+.DS_Store
+Thumbs.db
+
+# Tệp cấu hình của IDE
+.vscode/
+.idea/
+
+# Tệp package-lock.json có thể gây xung đột giữa các môi trường khác nhau, nên bỏ qua nếu cần
+package-lock.json
