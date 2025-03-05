@@ -5,6 +5,7 @@ const generateJWT = (user) => {
       const payload = {
         id: user._id,
         email: user.email,
+        role: user.role,
       };
       const secretKey =
         process.env.JWT_SECRET || "Kz8N4bGzZrP!mXyQe2T@vW9*LpRs^D3o";
@@ -33,6 +34,14 @@ const generateJWT = (user) => {
       res.status(400).json({ message: "Invalid token" });
     }
   };
+  const authorizeRole = (requiredRole) => {
+    return (req, res, next) => {
+        if (!req.user || req.user.role !== requiredRole) {
+            return res.status(403).json({ message: "Forbidden: You don't have permission" });
+        }
+        next();
+    };
+};
   const hashPassword = async (password) => {
     try {
         const salt = await bcrypt.genSalt(10); 
@@ -46,5 +55,6 @@ const generateJWT = (user) => {
   module.exports = {
     generateJWT,
     authMiddleware,
-    hashPassword
+    hashPassword,
+    authorizeRole
   }

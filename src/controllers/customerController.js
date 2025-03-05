@@ -20,7 +20,8 @@ const register = async (req, res) => {
         email,
         password: hashedPassword,
         phone,
-        address
+        address,
+        role: "User"
       });
     const saveUser = await userRegister.save();
     res.status(201).json({
