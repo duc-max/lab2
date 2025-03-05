@@ -39,13 +39,15 @@ const createProduct = async (req, res) => {
       supplier: supplier,
       category: category,
     });
-    await product.save().then((newDoc) => {
-      res.status(201).json({ product: newDoc, isOk: true });
-    });
+    await product
+      .save()
+      .then((newDoc) => {
+        res.status(201).json({ product: newDoc, isOk: true });
+      })
+      .catch((error) => res.status(400).json({ message: error.message }));
     if (!product) {
       return res.status(400).json({ message: "Product not created" });
     }
-  
   } catch (error) {
     console.error(error);
   }
@@ -62,7 +64,7 @@ const updateProduct = async (req, res) => {
       stock: stock,
       supplier: supplier,
       category: category,
-    });
+    }).catch((error) => res.status(400).json({ message: error.message }));
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }

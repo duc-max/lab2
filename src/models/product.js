@@ -22,7 +22,7 @@ const productSchema = new mongoose.Schema(
     },
     description: {
       type: String,
-      
+
       validate: {
         validator: function (value) {
           return value.length > 10;
@@ -42,7 +42,6 @@ const productSchema = new mongoose.Schema(
     stock: {
       type: Number,
       min: 0,
-      max: 100,
       required: true,
       validate: {
         validator: Number.isInteger,
@@ -54,7 +53,7 @@ const productSchema = new mongoose.Schema(
       required: true,
     },
     category: {
-      type:   mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: category,
       required: true,
     },
